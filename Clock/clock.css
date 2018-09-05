@@ -1,7 +1,7 @@
 /* Clock styles */
-.circle {
+#circle {
     fill: none;
-    stroke: tomato;
+    stroke: black;
     stroke-width: 9;
     stroke-miterlimit: 10;
     align-content: middle;
