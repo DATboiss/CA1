@@ -1,0 +1,14 @@
+/* Clock styles */
+.circle {
+    fill: none;
+    stroke: tomato;
+    stroke-width: 9;
+    stroke-miterlimit: 10;
+    align-content: middle;
+
+}
+
+.mid-circle {
+    fill: #000;
+}
+
