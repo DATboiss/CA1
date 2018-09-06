@@ -16,8 +16,16 @@ function fetchUser() {
                 return;
             }
             response.json().then(function (data) {
-                dataField.innerHTML = JSON.stringify(data);
-                console.log(JSON.stringify(data));
+                var dataString = 
+                "Name: " + data.name + "<br>" +
+                "Phone: " + data.phone + "<br><br>" +
+                "<b>Adress</b><br>" +
+                "Street: " + data.address.street + "<br>" + 
+                "City: " + data.address.city + "<br>" +
+                "Zip: " + data.address.zipcode + "<br>" +
+                "Geo (lat,lng): " + data.address.geo.lat + ", " + data.address.geo.lng + "<br>";
+
+                dataField.innerHTML = dataString;
             });
         })
         .catch(function (error) {
