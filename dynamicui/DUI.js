@@ -85,10 +85,8 @@ var removeGirl = function () {
     girlsDiv.innerHTML = girlsList.join('');
     allDiv.innerHTML = createAllList(boysList, girlsList).join('');
 }
-
 removeGirlButton.addEventListener("click", removeGirl);
 
-//TODO sørg for at man ikke kan slette list tags <ul> </ul>
 var removeBoy = function () {
     if (last.checked) {
         boysList.splice(boysList.length - 2, 1);
@@ -104,28 +102,55 @@ var removeBoy = function () {
 }
 
 removeBoyButton.addEventListener("click", removeBoy);
-//TODO create custom sort function
-
-
 
 var sortAll = function () {
     var sortedAllList = createAllList(boysList, girlsList);
+    sortedAllList.shift();
+    sortedAllList.splice(sortedAllList.length - 1);
     sortedAllList.sort(function (a, b) {
-            //Making sure that we don't touch the list tags
-            if((!a.includes("<ul") && !b.includes("<ul")) && !a.includes("</ul>") && !b.includes("</ul>"))
-            {
-                var nameA = a.toLowerCase().substring(3, a.length -5);
-                var nameB = b.toLowerCase().substring(3, a.length -5);
-                if (nameA < nameB) return -1;
-                if (nameA > nameB) return 1;
-                return 0;
-            }
+        //Making sure that we don't touch the list tags
+        if ((!a.includes("<ul") && !b.includes("<ul")) && !a.includes("</ul>") && !b.includes("</ul>")) {
+            var nameA = a.toLowerCase().substring(4, a.length - 5);
+            var nameB = b.toLowerCase().substring(4, b.length - 5);
+            console.log(nameA);
+            console.log(nameB);
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        }
     })
+    sortedAllList.unshift("<ul id=\"allList\">");
+    sortedAllList.push("</ul>");
     return sortedAllList;
 }
 
-sortAllId.addEventListener("click", function(){
+sortAllId.addEventListener("click", function () {
     var sortedAllList = sortAll();
     allDiv.innerHTML = sortedAllList.join('');
-    console.log(sortedAllList);
+});
+var reverseAll = function () {
+    var reversedList = createAllList(boysList, girlsList);
+    reversedList.shift();
+    reversedList.splice(reversedList.length - 1);
+    reversedList.sort(function (a, b) {
+        //Making sure that we don't touch the list tags
+        if ((!a.includes("<ul") && !b.includes("<ul")) && !a.includes("</ul>") && !b.includes("</ul>")) {
+            var nameA = a.toLowerCase().substring(4, a.length - 5);
+            var nameB = b.toLowerCase().substring(4, b.length - 5);
+            console.log(nameA);
+            console.log(nameB);
+            if (nameA < nameB) return 1;
+            if (nameA > nameB) return -1;
+            return 0;
+        }
+    })
+    reversedList.unshift("<ul id=\"allList\">");
+    reversedList.push("</ul>");
+
+    return reversedList;
+}
+
+reverse.addEventListener("click", function () {
+    var reversedList = reverseAll();
+    allDiv.innerHTML = reversedList.join('');
 });
