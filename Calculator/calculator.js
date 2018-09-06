@@ -41,7 +41,7 @@ function calculateEventHandler(e) {
         var number = display.innerText.split("+");
         var addResult = number[0];
         for (var i = 0; i < number.length - 1; i++) {
-            addResult += Number(number[i + 1]);
+            addResult = parseInt(addResult) + Number(number[i + 1]);
         }
         display.innerText = addResult;
     }
