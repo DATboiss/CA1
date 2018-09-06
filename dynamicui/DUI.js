@@ -16,7 +16,7 @@ const sortAllId = document.getElementById("sort");
 
 var createBoys = function (boyArray) {
     var boysHTML = boyArray.map(boy => "<li>" + boy + "</li>");
-    boysHTML.unshift("<ul>");
+    boysHTML.unshift("<ul id=\'boyslist\'>");
     boysHTML.push("</ul>");
     return boysHTML;
 }
@@ -25,7 +25,7 @@ boysDiv.innerHTML = boysList.join('');
 
 var createGirls = function (girlArray) {
     var girlsHTML = girlArray.map(girl => "<li>" + girl + "</li>");
-    girlsHTML.unshift("<ul>");
+    girlsHTML.unshift("<ul id=\'girlslist\'>");
     girlsHTML.push("</ul>");
     return girlsHTML;
 }
@@ -38,7 +38,6 @@ var createAllList = function (array1, array2) {
     allList.splice(array1.length - 1, 1);
     //splice to remove the <ul> tag at the head of the girls list.
     allList.splice(array1.length - 1, 1);
-    console.log(allList);
     return allList;
 }
 
@@ -106,9 +105,27 @@ var removeBoy = function () {
 
 removeBoyButton.addEventListener("click", removeBoy);
 //TODO create custom sort function
+
+
+
 var sortAll = function () {
-    var sortedAllList = createAllList(boys, girls);
-    allDiv.innerHTML = sortedAllList.join('');
+    var sortedAllList = createAllList(boysList, girlsList);
+    sortedAllList.sort(function (a, b) {
+            //Making sure that we don't touch the list tags
+            if((!a.includes("<ul") && !b.includes("<ul")) && !a.includes("</ul>") && !b.includes("</ul>"))
+            {
+                var nameA = a.toLowerCase().substring(3, a.length -5);
+                var nameB = b.toLowerCase().substring(3, a.length -5);
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
+            }
+    })
+    return sortedAllList;
 }
 
-sortAllId.addEventListener("click", sortAll);
+sortAllId.addEventListener("click", function(){
+    var sortedAllList = sortAll();
+    allDiv.innerHTML = sortedAllList.join('');
+    console.log(sortedAllList);
+});
